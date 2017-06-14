@@ -1,25 +1,24 @@
-const express = require('express')
-const app = express()
-const session = require('express-session')
-const bodyParser = require("body-parser");
-const serveStatic = require('serve-static')
-const static = serveStatic('public' )
+const 网站 = require('express')()
+const 会话 = require('express-session')
+const 解析器 = require("body-parser");
+const 静态文件服务 = require('serve-static')
+const 静态文件目录 = 静态文件服务('public' )
+const 头盔 = require('helmet');
 
-app.set('view engine', 'pug')
-var helmet = require('helmet');
+网站.set('view engine', 'pug')
 
-app.use(helmet());
-app.use(session({
-    secret: 'www.51jinkela.com',
+网站.use(头盔());
+网站.use(会话({
+    secret: '美国圣地亚哥' + Math.random(),
     resave: true,
     saveUninitialized: true,
     cookie: {secure: true, maxAge: 87654321}
 }))
 
-app.use(bodyParser.json({ type: 'application/json' }))
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(static);
+网站.use(解析器.json({ type: 'application/json' }))
+网站.use(解析器.urlencoded({ extended: false }));
+网站.use(静态文件目录);
 
-var port = 4500
-app.listen(port)
-console.log('http://localhost:'+port)
+var 端口 = 4500
+网站.listen(端口)
+console.log('http://localhost:'+端口)
